@@ -1,0 +1,12 @@
+{
+  "name": "devoplus-one",
+  "description": "Devoplus One — yapay zekâ ajanları için skill paketi",
+  "owner": { "name": "Devoplus" },
+  "plugins": [
+    {
+      "name": "devoplus-one",
+      "source": "./",
+      "description": "Devoplus One uygulamalarını analist gibi planlayıp geliştirmek, gereken izinleri yöneticiden istemek ve yayına hazırlamak için skill'ler"
+    }
+  ]
+}

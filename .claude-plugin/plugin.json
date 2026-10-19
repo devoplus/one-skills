@@ -1,0 +1,10 @@
+{
+  "name": "devoplus-one",
+  "displayName": "Devoplus One",
+  "version": "0.1.0",
+  "description": "Devoplus One uygulamalarını analist gibi planlayıp geliştirmek, gereken izinleri yöneticiden istemek ve yayına hazırlamak için skill'ler",
+  "author": { "name": "Devoplus" },
+  "homepage": "https://one.devoplus.com.tr/",
+  "license": "UNLICENSED",
+  "keywords": ["devoplus", "devoplus-one"]
+}
