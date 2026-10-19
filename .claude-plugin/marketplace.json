@@ -1,6 +1,6 @@
 {
   "name": "devoplus-one",
-  "description": "Devoplus One — yapay zekâ ajanları için skill paketi",
+  "description": "Devoplus One: yapay zeka ajanları için skill paketi",
   "owner": { "name": "Devoplus" },
   "plugins": [
     {

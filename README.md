@@ -1,12 +1,12 @@
-# Devoplus One — yapay zekâ ajanları için skill paketi
+# Devoplus One: yapay zeka ajanları için skill paketi
 
-Devoplus One uygulamalarını geliştiren yapay zekâ ajanlarına (Claude Code, Codex, Cursor ve diğerleri) platformun
+Devoplus One uygulamalarını geliştiren yapay zeka ajanlarına (Claude Code, Codex, Cursor ve diğerleri) platformun
 kurallarını öğreten skill'ler. Kurulum için Devoplus One kurulum sayfasındaki prompt'u ajanınıza verin; ajan bu paketi
 kendisi kurar.
 
 | Skill | Ne zaman |
 |---|---|
-| `devoplus-one` | Yeni bir uygulama fikri — önce keşif görüşmesi, özet ve iş listesi |
+| `devoplus-one` | Yeni bir uygulama fikri: önce keşif görüşmesi, özet ve iş listesi |
 | `one-app-development` | Uygulama kodu (manifest, SDK, veritabanı, servisler) |
 | `one-ui-standards` | Sayfa, menü, bildirim, görünüm |
 | `one-data-and-exports` | Kayıt tutan ekranlar (veri modeli, hazır kayıt uçları) ve Excel/CSV/yazdırma |
