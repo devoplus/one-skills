@@ -1,6 +1,6 @@
 ---
 name: one-data-and-exports
-description: Bir Devoplus One uygulaması kayıt tutacaksa (talep, rezervasyon, envanter, anket cevabı gibi) ya da kullanıcı Excel, CSV, çıktı veya PDF isterse kullanın. one.data.json veri modeli, one data generate, createCrudHandler ile hazır kayıt uçları ve toXlsx / toCsv / renderPrintableReport ile dışa aktarmayı anlatır.
+description: Bir Devoplus One uygulaması kayıt tutacaksa (bakım kaydı, denetim, envanter, ziyaret gibi) ya da kullanıcı Excel, CSV, çıktı veya PDF isterse kullanın. one.data.json veri modeli, one data generate, createCrudHandler ile hazır kayıt uçları ve toXlsx / toCsv / renderPrintableReport ile dışa aktarmayı anlatır.
 ---
 
 # Devoplus One: veri modeli, kayıt işlemleri ve dışa aktarma
@@ -20,6 +20,9 @@ Ayrıntılı belgeler (kurulum prompt'unun geldiği adreste): `/docs/data-model.
 
 ## Değişmez kurallar
 
+- **Silme yumuşaktır.** Varlıklar varsayılan olarak yumuşak silinir; `"softDelete": false` yalnız `"hardDeleteReason"`
+  gerekçesiyle (en az 10 karakter) kabul edilir, yoksa üretim ve yayın durur (koddan verilen modelde kayıt uçları
+  yapılandırma hatası verir).
 - **Model yalnız büyür.** Alan/varlık silme, ad veya tür değiştirme, zorunlu ile isteğe bağlı arasında geçiş, tekillik değişikliği ve
   seçim değeri çıkarma üretilmez; seçim alanına yeni değer eklemek serbesttir. Var olan kayıt türüne zorunlu alan
   eklenecekse `default` verin.

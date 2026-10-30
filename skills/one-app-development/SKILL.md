@@ -8,9 +8,11 @@ description: Bir Devoplus One uygulamasının kodunu yazarken ya da değiştirir
 Uygulama deposunda **ilk iş `AGENTS.md`'yi okuyun**; kurallar bağlayıcıdır. Ayrıntılı başvurular (kurulum
 prompt'unun geldiği adreste): `/docs/sdk.md`, `/docs/manifest.md`, `/docs/app-rules.md`.
 
-Yeni uygulama **hazır şablondan** başlar (`create-one-app --template talep-onay | talep-takip | rezervasyon | anket |
-envanter`; seçim: `/docs/templates.md`). Şablondan üretilmiş uygulamada `AGENTS.md`'nin en üstündeki şablon bölümü
-dosya haritasını ve bozulmaması gereken kuralları (çakışma, tek yanıt, eksi stok, onay sırası) yazar: değiştirin,
+Yeni uygulama **hazır şablondan** başlar (`npm create devoplus-one-app@next -- <dizin> --template <şablon>`; şablonlar
+`bakim-takvimi`, `saha-denetimi`, `egitim-sertifika`, `ziyaretci-kaydi`, `uygunsuzluk-dof`, `musteri-ziyaret`, `hedef-takibi`,
+`envanter`; seçim: `/docs/templates.md`). Şablondan üretilmiş uygulamada `AGENTS.md`'nin
+en üstündeki şablon bölümü dosya haritasını ve bozulmaması gereken kuralları (sunucuda hesaplanan alanlar, durum akışı,
+eksi stok, kişisel verinin silinmesi) yazar: değiştirin,
 baştan yazmayın.
 
 ## Değişmez kurallar
@@ -24,7 +26,9 @@ baştan yazmayın.
   Sır, API anahtarı, parola koda ya da depoya yazılmaz.
 - **Yetki alanı önce manifest'te.** Kullanılan her yetki alanı `one.manifest.json` dosyasının `scopes` listesinde olur; kodda
   `requireScope(ctx, '<scope>')` ile korunur.
-- **Uç, alan, sorgu anahtarı uydurulmaz.** Belgede yoksa kullanıcıya iş diliyle sorun ya da `new-query` talebi açın.
+- **Uç, alan, sorgu anahtarı uydurulmaz.** DEXA sorgusunun anahtarını, parametrelerini ve sütunlarını
+  `one_dexa_queries` (ya da `one dexa queries`) listesinden alın; yoksa kullanıcıya iş diliyle sorun ya da `new-query`
+  talebi açın.
 - **Kendi yetki modeli kurulmaz.** Rol gerekiyorsa manifest `permissions` + `requirePermission` / `hasPermission`;
   atamayı portal yöneticisi yapar.
 - **Devoplus yapay zekası uygulamaya erişebilmeli (zorunlu adım).** Veri ya da işlem sunan her özellik için:
@@ -72,5 +76,17 @@ E-posta, SMS, mobil bildirim ve ERP'ye yazma kullanıcının Portal'da ayrıca o
 
 ## Yerelde
 
-Sıra: `one migrate`, `one dev`, `one build`. Yerelde Portal yoktur, kimlik başlıkları elle gönderilir; Devoplus servisleri
-yalnız platformda denenir. Komutları kullanıcıya yazdırmayın, kendiniz çalıştırın.
+**Önce SDK sürümü.** Var olan bir uygulamada işe başlamadan kurulu sürümü (`pnpm list @devoplus/one-sdk`) kanaldaki en
+yeni sürümle (`npm view @devoplus/one-sdk dist-tags`, ön sürüm kuruluysa `next`) karşılaştırın. `one` komutu kurulu SDK
+eskiyse "Devoplus One SDK'nın daha yeni bir sürümü var" uyarısını ve güncelleme komutunu yazar; komut durmaz. Uyarıyı
+görürseniz başka bir işe geçmeden güncelleyin (`pnpm add @devoplus/one-sdk@next`), testleri ve `one build`'i çalıştırın,
+`package.json` ile `pnpm-lock.yaml`'ı kodla birlikte yükleyin.
+
+Sıra: `one migrate`, `one dev`, `one build`. `one dev` uygulamayı yerel Portal içinde açar (`http://127.0.0.1:8787/`);
+kimlik başlıkları elle yazılmaz, kişi `one dev --as <kişi>` ya da sayfadaki listeyle seçilir. Kişiler, kullanıcı grupları
+ve DEXA örnek yanıtları uygulamanın kökündeki `one.dev.json` dosyasındadır (yoksa iki örnek kişi). E-posta ve SMS
+gönderilmez, yerel posta kutusuna yazılır (`/__one-dev/posta-kutusu`); mobil bildirim platformun varsayılanı gibi
+kapalıdır (`ONE-APP-E-029`; `"channels": { "push": "open" }` ile posta kutusuna yazılır). DEXA ve organizasyon şeması
+örnek veridendir; tanımsız DEXA anahtarı platformdaki gibi reddedilir. DEXA anahtarını örnek veriye uydurmayın,
+`one_dexa_queries` listesinden alın. Yapay zeka ve arka plan işinin servis çağrıları yerelde yoktur. Komutları
+kullanıcıya yazdırmayın, kendiniz çalıştırın.
