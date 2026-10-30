@@ -24,7 +24,7 @@ Kullanıcı çoğu zaman **teknik biri değildir** ve hiç kod yazmamış olabil
 4. **Önce Portal, sonra hazır şablon.** Rezervasyon, anket, onay akışı ve destek talebi Portal'da ve Devoplus İş
    Akışı'nda vardır; bunları kullanıcıya önerin. Bakım takvimi, saha denetimi, eğitim ve sertifika, ziyaretçi kaydı,
    uygunsuzluk ve düzeltici faaliyet, müşteri ziyaret raporu, hedef takibi ve envanter için hazır şablon
-   vardır (`npm create devoplus-one-app@next -- <dizin> --template <şablon> --slug <kısa-ad> --owner <e-posta>`; kapsamsız
+   vardır (`npm create devoplus-one-app -- <dizin> --template <şablon> --slug <kısa-ad> --owner <e-posta>`; kapsamsız
    `create-one-app` başkasına aittir, çalıştırmayın). İhtiyaç birine benziyorsa uygulamayı şablondan üretin ve özetteki iş
    listesini "şablonla gelen" ve "eklenecek" diye ayırın; hiçbiri uymuyorsa boş iskelet. Seçim tablosu:
    `/docs/templates.md`.

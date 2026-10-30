@@ -1,6 +1,6 @@
 ---
 name: one-publishing
-description: Bir Devoplus One uygulamasını yayına hazırlarken, kodu Devoplus'a yüklerken, test ortamına yayınlayıp önizleme adresi verirken, sürümü bir sonraki ortama taşırken ya da önceki sürüme geri alırken, hattın (CI) bir kapısı durduğunda ve kullanıcı yayındaki uygulamada bir sorun bildirdiğinde kullanın. Yükleme kurallarını, kapıları, yayın araçlarını (one_source_upload, one_publish, one_pipeline_status, one_deployments, one_app_health, one_dependency_patch) ve kullanıcıya nasıl bildirileceğini anlatır.
+description: Bir Devoplus One uygulamasını yayına hazırlarken, kodu Devoplus'a yüklerken, test ortamına yayınlayıp önizleme adresi verirken, sürümü bir sonraki ortama taşırken ya da önceki sürüme geri alırken, hattın (CI) bir kapısı durduğunda ve kullanıcı yayındaki uygulamada bir sorun bildirdiğinde kullanın. Yükleme kurallarını, kapıları, yayın araçlarını (one_source_upload, one_publish, one_pipeline_status, one_deployments, one_app_health, one_dependency_patch, one_platform_updates) ve kullanıcıya nasıl bildirileceğini anlatır.
 ---
 
 # Devoplus One: yayın
@@ -66,8 +66,22 @@ sır; yüksek önemli güvenlik bulgusu; açığı bilinen bağımlılık; uygul
 düşük sürüm; (platform açtıysa) uat'ta doğrulanmamış sürümün canlıya gitmesi.
 
 Hat yayını durdurmadan **uyarı** da yazar. `⚠ SDK:` satırı, kurulu `@devoplus/one-sdk` asgari sürümden (bugün
-`0.2.0-next.158`) eski ya da sürümü okunamıyor demektir: SDK'yı güncelleyin (`pnpm add @devoplus/one-sdk@next`) ve
-`pnpm-lock.yaml`'ı da yükleyin. Platform bu denetimi ileride zorlayıcı yapabilir; uyarıyı kalıcı bırakmayın.
+`0.2.0-next.158`) eski ya da sürümü okunamıyor demektir: SDK'yı güncelleyin (`pnpm add @devoplus/one-sdk@latest` (kurulu SDK ön sürümse `@next`),
+ardından `npx one upgrade` (sürümü tam sabitler, `one.manifest.json` `sdkVersion` alanını ve `AGENTS.md`'nin platform kuralları bölümünü yazar)) ve `pnpm-lock.yaml`, `one.manifest.json`, `one.platform-state.json` ve `AGENTS.md`'yi de yükleyin. Platform bu denetimi ileride zorlayıcı yapabilir;
+uyarıyı kalıcı bırakmayın. `⚠ SDK beyanı:` ya da `✗ SDK beyanı:` satırı manifestteki `sdkVersion` alanıyla ilgilidir;
+alanı elle yazmayın, `npx one upgrade` yazar (SDK 0.3.0 ve sonrası).
+
+SDK'yı yükselttikten sonra (`pnpm add @devoplus/one-sdk@latest` (kurulu SDK ön sürümse `@next`), ardından `npx one upgrade --json`) `one_platform_updates`
+aracını rapordaki `previous` değerleriyle çağırın (`pending` değil): yeni ve değişen kuralları, bugün zorunlu düzeydeki
+kuralları ve yeni SDK sürümlerini verir (ayrıntılı notlar `node_modules/@devoplus/one-sdk/CHANGELOG.md` dosyasında). İlk
+satırdaki uyarıyı kullanıcıya iletin (liste eski olabilir, hattın çıktısı esastır). Bulgular düzelince yanıtın sonundaki
+`npx one upgrade --complete ...` komutunu değiştirmeden çalıştırın.
+
+Yüklemeden önce `npx one doctor` çalıştırın: hattın kataloğa bağlı kapılarını (manifest, veri modeli, arayüz, SDK beyanı)
+yerelde çalıştırır, bulguları kural kimliği ve `düzeltme:` satırıyla yazar, zorunlu bulguda çıkış kodu 1'dir. Belge ve
+ajan rehberi kapıları, giriş dosyası ve SDK asgari sürüm denetimi, sır, bağımlılık, kod güvenliği ve süreklilik taramaları
+yalnız hatta çalışır; esas olan hattın çıktısıdır. Kullanıcıya
+uygulamanın "uyumlu" olduğunu söylemeyin.
 
 Gerçek olmayan bir sır ya da güvenlik bulgusu `.one-secrets-ignore` / `.one-sast-ignore` dosyasına parmak izi +
 **gerekçe** ile eklenir; gerekçesiz satır kapıyı geçmez. Sır bir kez depoya girdiyse silmek yetmez: iptal edilip

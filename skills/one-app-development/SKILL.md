@@ -8,7 +8,7 @@ description: Bir Devoplus One uygulamasının kodunu yazarken ya da değiştirir
 Uygulama deposunda **ilk iş `AGENTS.md`'yi okuyun**; kurallar bağlayıcıdır. Ayrıntılı başvurular (kurulum
 prompt'unun geldiği adreste): `/docs/sdk.md`, `/docs/manifest.md`, `/docs/app-rules.md`.
 
-Yeni uygulama **hazır şablondan** başlar (`npm create devoplus-one-app@next -- <dizin> --template <şablon>`; şablonlar
+Yeni uygulama **hazır şablondan** başlar (`npm create devoplus-one-app -- <dizin> --template <şablon>`; şablonlar
 `bakim-takvimi`, `saha-denetimi`, `egitim-sertifika`, `ziyaretci-kaydi`, `uygunsuzluk-dof`, `musteri-ziyaret`, `hedef-takibi`,
 `envanter`; seçim: `/docs/templates.md`). Şablondan üretilmiş uygulamada `AGENTS.md`'nin
 en üstündeki şablon bölümü dosya haritasını ve bozulmaması gereken kuralları (sunucuda hesaplanan alanlar, durum akışı,
@@ -79,8 +79,13 @@ E-posta, SMS, mobil bildirim ve ERP'ye yazma kullanıcının Portal'da ayrıca o
 **Önce SDK sürümü.** Var olan bir uygulamada işe başlamadan kurulu sürümü (`pnpm list @devoplus/one-sdk`) kanaldaki en
 yeni sürümle (`npm view @devoplus/one-sdk dist-tags`, ön sürüm kuruluysa `next`) karşılaştırın. `one` komutu kurulu SDK
 eskiyse "Devoplus One SDK'nın daha yeni bir sürümü var" uyarısını ve güncelleme komutunu yazar; komut durmaz. Uyarıyı
-görürseniz başka bir işe geçmeden güncelleyin (`pnpm add @devoplus/one-sdk@next`), testleri ve `one build`'i çalıştırın,
-`package.json` ile `pnpm-lock.yaml`'ı kodla birlikte yükleyin.
+görürseniz başka bir işe geçmeden güncelleyin (`pnpm add @devoplus/one-sdk@latest` (kurulu SDK ön sürümse `@next`), ardından `npx one upgrade` (sürümü tam sabitler, `one.manifest.json` `sdkVersion` alanını ve `AGENTS.md`'nin platform kuralları bölümünü yazar)), testleri ve
+`one build`'i çalıştırın, `package.json`, `pnpm-lock.yaml`, `one.manifest.json`, `one.platform-state.json` ve `AGENTS.md`'yi
+kodla birlikte yükleyin.
+
+**Platform kuralları.** `AGENTS.md`'nin sonundaki "Platform kuralları" bölümünü `npx one agents sync` yazar; elle
+düzenlemeyin. Commit'ten önce `npx one doctor` çalıştırın: uygulamayı bu kurallara karşı tarar, zorunlu bulguda çıkış
+kodu 1'dir.
 
 Sıra: `one migrate`, `one dev`, `one build`. `one dev` uygulamayı yerel Portal içinde açar (`http://127.0.0.1:8787/`);
 kimlik başlıkları elle yazılmaz, kişi `one dev --as <kişi>` ya da sayfadaki listeyle seçilir. Kişiler, kullanıcı grupları
